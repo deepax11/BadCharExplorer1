@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol APIResource {
+public protocol APIEndpoint {
     associatedtype ModelType: Decodable
     
     var path: String { get }
@@ -19,9 +19,10 @@ public protocol APIResource {
     var queryItems: [URLQueryItem] { get }
     var authenticated: Bool { get }
     var cachePolicy: URLRequest.CachePolicy { get }
+    var dateFormatter: DateFormatter { get }
 }
 
-public extension APIResource {
+public extension APIEndpoint {
     var method: APIMethod {
         return .get
     }
@@ -49,5 +50,10 @@ public extension APIResource {
     var timeoutInterval: TimeInterval {
         return 60.0
     }
+    
+    var dateFormatter : DateFormatter {
+        return DateFormatter()
+    }
+    
 
 }
