@@ -11,24 +11,49 @@ import XCTest
 
 class NetworkKitTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+   //TODO: Write various test cases with variation of predefind APIEndpoint
+    // Make sure valid request object gets created
+    // Adding one here for example
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testThatProperGetRequestCreatedFromAPIEndpoint() throws {
+        let request = APIRequest(endpoint: MockedEndpoint(), environment: TestEnvironment.test)
+        let urlRequest = request.request { data, error in }
+        
+        XCTAssert(urlRequest?.httpBody == nil, "Get request should not have body")
+        XCTAssert(urlRequest?.httpMethod == "GET", "Get request should have its method type `GET`")
+        XCTAssert(urlRequest?.url?.path == "/path1/path2", "Get request path is not matching")
     }
+    
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+}
+
+
+public enum TestEnvironment : APIEnvironmentProtocol {
+    case test
+    
+    public var baseUrl: URL {
+        return URL(string: "https://gist.githubusercontent.com/")!
     }
+}
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+
+// Define your request's resource
+public struct MockedEndpoint: APIEndpoint {
+    
+    public typealias ModelType = String
+    
+    public init() { }
+
+    public var method: APIMethod {
+        return .get
     }
-
+    
+    public var path: String {
+        "/path1/path2"
+    }
+    
+    public var scope: String {
+        return ""
+    }
+    
 }

@@ -38,6 +38,7 @@
 		E180FBDC25745CCA0023666F /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E180FBC725745CCA0023666F /* NetworkKit.framework */; };
 		E180FBDD25745CCA0023666F /* NetworkKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E180FBC725745CCA0023666F /* NetworkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E19CE8CD2576294500D44BF7 /* BadCharacterListVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E19CE8CC2576294500D44BF7 /* BadCharacterListVC.storyboard */; };
+		E19CE8CF2576325500D44BF7 /* MockedResourceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CE8CE2576325500D44BF7 /* MockedResourceObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +155,7 @@
 		E180FBE825745CF40023666F /* APIMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
 		E180FBE925745CF40023666F /* ImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		E19CE8CC2576294500D44BF7 /* BadCharacterListVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BadCharacterListVC.storyboard; sourceTree = "<group>"; };
+		E19CE8CE2576325500D44BF7 /* MockedResourceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedResourceObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				E1597BEB2574AE0F00AE4E3F /* DTOKitTests.swift */,
+				E19CE8CE2576325500D44BF7 /* MockedResourceObject.swift */,
 				E1597BED2574AE0F00AE4E3F /* Info.plist */,
 			);
 			path = DTOKitTests;
@@ -631,6 +634,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1597BEC2574AE0F00AE4E3F /* DTOKitTests.swift in Sources */,
+				E19CE8CF2576325500D44BF7 /* MockedResourceObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

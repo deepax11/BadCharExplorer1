@@ -8,13 +8,16 @@
 
 import Foundation
 
+public enum APIError: Error {
+    case invalidURL
+}
 
-public class APIRequest<Resource: APIEndpoint> {
-    let resource: Resource
+public class APIRequest<Endpoint: APIEndpoint> {
+    let endpoint: Endpoint
     let environment: APIEnvironmentProtocol
-    
-    public init(resource: Resource, environment: APIEnvironmentProtocol) {
-        self.resource = resource
+        
+    public init(endpoint: Endpoint, environment: APIEnvironmentProtocol) {
+        self.endpoint = endpoint
         self.environment = environment
     }
 }
@@ -23,13 +26,13 @@ extension APIRequest {
     // TODO: Implement JSON decode error handling
     // TODO: Log any JSON decode error to know about any missing mandatory field
     
-    public func decode(_ data: Data?) -> Resource.ModelType? {
+    public func decode(_ data: Data?) -> Endpoint.ModelType? {
         guard let data = data else { return nil }
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(resource.dateFormatter)
+        decoder.dateDecodingStrategy = .formatted(endpoint.dateFormatter)
         do {
-            let data = try decoder.decode(Resource.ModelType.self, from: data)
+            let data = try decoder.decode(Endpoint.ModelType.self, from: data)
             return data
         } catch {
             print(error)
@@ -37,39 +40,41 @@ extension APIRequest {
         return nil
     }
     
-    
-    public func request(withCompletion completion: @escaping (Resource.ModelType?, Error?) -> Void) {
+    @discardableResult
+    public func request(withCompletion completion: @escaping (Endpoint.ModelType?, Error?) -> Void) -> URLRequest? {
         let baseURL = environment.baseUrl
         
         guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
-            return
-            //TODO: Throw invalid URL exception
+            completion(nil, APIError.invalidURL)
+            return nil
         }
-        components.path = resource.path
-        components.queryItems = resource.queryItems
+        components.path = endpoint.path
+        components.queryItems = endpoint.queryItems
         
         guard let url = components.url else {
-            //TODO: Throw invalid URL exception
-            return
+            completion(nil, APIError.invalidURL)
+            return nil
         }
-        
+                
         var request = URLRequest(url: url,
-                                 cachePolicy: resource.cachePolicy,
-                                 timeoutInterval: resource.timeoutInterval)
+                                 cachePolicy: endpoint.cachePolicy,
+                                 timeoutInterval: endpoint.timeoutInterval)
         
-        request.httpMethod = resource.method.rawValue
-        request.httpBody = resource.body
+        request.httpMethod = endpoint.method.rawValue
+        request.httpBody = endpoint.body
         
-        resource.headers.forEach {
+        endpoint.headers.forEach {
             request.addValue($0.value, forHTTPHeaderField: $0.key)
         }
         
-        actualRequeest(request, withCompletion: completion)
+        actualRequest(request, withCompletion: completion)
+        
+        return request
     }
     
     // TODO: Implement API Error handling
     
-    private func actualRequeest(_ urlRequest: URLRequest, withCompletion completion: @escaping (Resource.ModelType?, Error?) -> Void) {
+    private func actualRequest(_ urlRequest: URLRequest, withCompletion completion: @escaping (Endpoint.ModelType?, Error?) -> Void) {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
         let task = session.dataTask(with: urlRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             

@@ -26,7 +26,7 @@ class BadCharListViewModel {
     
     func fetchSearchedResult() {
         let resource = BadCharactorListingResource()
-        request = APIRequest(resource: resource, environment: APIEnvironment.dev)
+        request = APIRequest(endpoint: resource, environment: APIEnvironment.dev)
         request?.request { [weak self] result, error in
             guard let strongSelf = self else {
                 return
