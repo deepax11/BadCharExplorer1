@@ -2,7 +2,7 @@
 
 Dear Reviwer,
 
-I have done what could I have done in my free time. I did not complete all the requirement and but leaving it in right direction where you can give me the feedback.
+I have done what could I have done in my free time. I did not complete all the requirement but leaving it in right direction on which you can give me the feedback.
 
 ##1. Created NetworkKit similar to what I have been using in my current project.
 I kept it simple with minimum interface.
