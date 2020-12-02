@@ -9,10 +9,10 @@ I kept it simple with minimum interface.
 Also added simple test case to demonstrate how can we test our own custom network client
 
 ##2. Created DTOKit to parse APIResponse. 
-Made it generic so that it reduces the boilerplates for additional APIRequests
+Made it generic so that it reduces the boilerplates for additional APIRequests.
 Addd simple test case to demonstate how can we test against APIEndpoint.
 Please note that: characters API response is quite open ended. But I belive few properties could be made enum which also conforms to codable protocol.
-This way we can filter character.
+This way we can filter character based on those propeerties easily.
 
 ##3. Added a Flow (FlowProtocol) and RootFlow for intitial presentation and nvigation of ViewControllers
 
