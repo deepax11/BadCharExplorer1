@@ -11,13 +11,18 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var rootFlow: RootFlow!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-       guard let windowScene = scene as? UIWindowScene else { return }
+        guard let windowScene = scene as? UIWindowScene else { return }
         
-       window = UIWindow(windowScene: windowScene)
-       window?.rootViewController = BadCharacterListVC.initFromStoryboard()
-       window?.makeKeyAndVisible()
+        rootFlow = RootFlow(navigationController: UINavigationController(), environment: .dev)
+        
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = rootFlow.navigationController
+        window?.makeKeyAndVisible()
+        
+        rootFlow.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

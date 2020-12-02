@@ -22,7 +22,16 @@ public class APIRequest<Endpoint: APIEndpoint> {
     }
 }
 
-extension APIRequest {
+public protocol APIRequestProtocol {
+    
+    associatedtype ModelType
+    func decode(_ data: Data?) -> ModelType?
+    
+    @discardableResult
+    func request(withCompletion completion: @escaping (ModelType?, Error?) -> Void) -> URLRequest?
+}
+
+extension APIRequest: APIRequestProtocol {
     // TODO: Implement JSON decode error handling
     // TODO: Log any JSON decode error to know about any missing mandatory field
     

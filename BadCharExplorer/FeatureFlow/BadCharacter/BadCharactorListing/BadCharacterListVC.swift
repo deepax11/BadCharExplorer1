@@ -10,13 +10,20 @@ import UIKit
 import NetworkKit
 import DTOKit
 
+struct BadCharacterListViewState {
+    let items: [BadCharacterCellViewState]
+}
+
 class BadCharacterListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    static func makeVC(with viewModel: BadCharListViewModel) -> BadCharacterListVC {
+        let vc = BadCharacterListVC.initFromStoryboard()
+        vc.viewModel = viewModel
+        return vc
+    }
+    
     @IBOutlet weak var tableView: UITableView!
-    
-    //TODO: use section header to show the price for each forward and return journey combo
-    
-    var viewModel = BadCharListViewModel() // TODO: Inject from flowController
+    var viewModel: BadCharListViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +45,7 @@ class BadCharacterListVC: UIViewController, UITableViewDelegate, UITableViewData
     private func configDataBinding() {
         self.viewModel.data.bind() { [weak self] data in
             guard let strongSelf = self  else { return }
-            
+
             DispatchQueue.main.async {
                 strongSelf.tableView.reloadData()
             }
@@ -54,14 +61,20 @@ class BadCharacterListVC: UIViewController, UITableViewDelegate, UITableViewData
 
     //MARK: UITableviewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.data.value.count
+        return self.viewModel.data.value.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BadCharacterCellView.reuseIdentifier, for: indexPath) as! BadCharacterCellView
         
-        // fetch states from model and config
+        let viewState = viewModel.data.value.items[indexPath.row]
+        cell.config(state: viewState)
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.showDetail(at: indexPath.row)
     }
     
     

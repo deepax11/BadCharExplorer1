@@ -20,8 +20,7 @@ class BadCharacterCellView: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
         
     func config(state: BadCharacterCellViewState) {
-        // TODO: Implement imageview extenstion where it loads imahe from URL asynchronously
-        self.imageView?.image = nil
+        self.logoView?.loadWithURL(state.imageURL)
         self.nameLabel.text = state.name
     }
     

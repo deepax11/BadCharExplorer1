@@ -26,14 +26,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="196"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Zqu-Wf-Y5d">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Zqu-Wf-Y5d">
                                                     <rect key="frame" x="16" y="16" width="382" height="164"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="248" verticalHuggingPriority="251" image="printer.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="m56-qZ-kFd">
-                                                            <rect key="frame" x="0.0" y="72" width="108.5" height="20"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m56-qZ-kFd">
+                                                            <rect key="frame" x="0.0" y="52" width="60" height="60"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="60" id="64n-Ew-yeK"/>
+                                                                <constraint firstAttribute="height" constant="60" id="XpE-5j-1QS"/>
+                                                            </constraints>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evg-nT-LaQ" userLabel="name">
-                                                            <rect key="frame" x="124.5" y="72" width="257.5" height="20.5"/>
+                                                            <rect key="frame" x="76" y="72" width="306" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -74,7 +79,4 @@
             <point key="canvasLocation" x="-100" y="64"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="printer.fill" catalog="system" width="128" height="111"/>
-    </resources>
 </document>
