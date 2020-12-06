@@ -20,8 +20,8 @@ class BadCharExplorerTests: XCTestCase {
     }
 
     func testExample() throws {
-        //TODO: write  test cases
-        // let apiRequest = APIRequest(endpoint: BadCharacterListingResource(), environment: APIEnvironment.dev)
-        // let viewModel = BreakingBadCharListVM(apiRequest: apiRequest)
+        
     }
+
 }
+

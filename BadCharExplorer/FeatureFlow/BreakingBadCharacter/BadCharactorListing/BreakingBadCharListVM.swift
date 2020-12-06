@@ -12,7 +12,7 @@ import NetworkKit
 
 
 protocol BreakingBadCharListVMProtocol {
-    init(apiRequest: APIRequest<BadCharacterListingResource>)
+    init(apiRequest: APIRequestProtocol, endpoint: BadCharactersAPIEndpoint)
     func fetchResults()
     func fetchResults(with searchTerm: String?)
     func fetchResults(for seasonNumber: Int)
@@ -21,10 +21,12 @@ protocol BreakingBadCharListVMProtocol {
 
 class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
     
-    let apiRequest: APIRequest<BadCharacterListingResource>
+    let apiRequest: APIRequestProtocol
+    let apiEndpoint: BadCharactersAPIEndpoint
     
-    required init( apiRequest: APIRequest<BadCharacterListingResource>) {
+    required init(apiRequest: APIRequestProtocol, endpoint: BadCharactersAPIEndpoint) {
         self.apiRequest = apiRequest
+        self.apiEndpoint = endpoint
     }
     
     var data: DynamicValue<BadCharacterListViewState> = DynamicValue([])
@@ -32,13 +34,11 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
     var selectedSeason: DynamicValue<Season> = DynamicValue(Season.none)
     
     private var badCharacters : [BreakingBadCharacter] = []
-    
-    
     var detailClosure: ((BreakingBadCharacter) -> Void)?
     
     
     func fetchResults() {
-        apiRequest.request { [weak self] result, error in
+        apiRequest.request(endpoint: apiEndpoint) { [weak self] result, error in
             guard let strongSelf = self else {
                 return
             }
@@ -109,8 +109,8 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
     // Detail action
     
     func showCharacterDetail(of characterID: Int) {
-        // TODO: If list large store data in sqlite database
-        //TOD0: if list is small keep data in memory in dictionary format for quick lookup
+        //TODO: If list is large, data should be stored sqlite database and then fetched from there
+        //TODO: if list is small keep data in memory in dictionary format for quick lookup
         guard let charracter = self.badCharacters.first (where: { $0.id == characterID }) else {
             return
         }

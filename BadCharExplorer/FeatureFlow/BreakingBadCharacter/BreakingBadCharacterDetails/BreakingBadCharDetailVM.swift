@@ -26,9 +26,7 @@ struct BreakingBadCharDetailVM {
         self.breakingBadCharacter = character
     }
     
-    
     func fetchViewState() {
-        // image, name , occupation, status, nick name , season apearence
         let imageURL = breakingBadCharacter.imageUrl
         let occupations = breakingBadCharacter.occupation.joined(separator: ", ")
         let seasons = breakingBadCharacter.appearance?
@@ -45,7 +43,5 @@ struct BreakingBadCharDetailVM {
         
         self.data.value = BreakingBadCharDetailViewState(heroImageURL: imageURL, values: values)
     }
-    
-    
     
 }

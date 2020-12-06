@@ -14,8 +14,8 @@ import NetworkKit
 struct BreakingBadCharCellViewVM {
     private var imageRequest = ImageRequest()
     
-    mutating func loadImage(from urlConvertible: CustomURLConvertible, completion: @escaping ((UIImage?, URL?) -> Void)) {
-
+    mutating func loadImage(from urlConvertible: CustomURLConvertible,
+                            completion: @escaping ((UIImage?, URL?) -> Void)) {
         guard let url = urlConvertible.asURL else {
             completion(nil, nil)
             return

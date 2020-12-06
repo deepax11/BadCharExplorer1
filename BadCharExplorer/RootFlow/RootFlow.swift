@@ -22,16 +22,15 @@ class RootFlow: Flow {
     }
 
     func start() {
-        let resource = BadCharacterListingResource()
-        let request = APIRequest(endpoint: resource, environment: apiEnvironment)
+        let endpoint = BadCharactersAPIEndpoint()
+        let request = APIRequest(environment: apiEnvironment)
         
-        let viewModel = BreakingBadCharListVM(apiRequest: request)
+        let viewModel = BreakingBadCharListVM(apiRequest: request, endpoint: endpoint)
         viewModel.detailClosure = { [weak self] badCharacter in
             self?.showCharacterDetailView(for: badCharacter)
         }
         
         let vc = BreakingBadCharListVC.makeVC(with: viewModel)
-        
         navigationController.pushViewController(vc, animated: false)
     }
     

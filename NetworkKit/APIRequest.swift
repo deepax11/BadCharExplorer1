@@ -10,47 +10,37 @@ import Foundation
 
 public enum APIError: Error {
     case invalidURL
+    case requestFailed
+    case pasringFailure
+    case invalidData
+
+    var localizedDescription: String {
+        switch self {
+        case .invalidURL: return "InvalidnURL"
+        case .requestFailed: return "Request Failed"
+        case .pasringFailure: return "Parsing failed"
+        case .invalidData: return "Invalid Data"
+        }
+    }
 }
 
-public class APIRequest<Endpoint: APIEndpoint> {
-    let endpoint: Endpoint
+public class APIRequest {
     let environment: APIEnvironmentProtocol
         
-    public init(endpoint: Endpoint, environment: APIEnvironmentProtocol) {
-        self.endpoint = endpoint
+    public init(environment: APIEnvironmentProtocol) {
         self.environment = environment
     }
 }
 
 public protocol APIRequestProtocol {
-    
-    associatedtype ModelType
-    func decode(_ data: Data?) -> ModelType?
-    
     @discardableResult
-    func request(withCompletion completion: @escaping (ModelType?, Error?) -> Void) -> URLRequest?
+    func request<T: APIEndpoint>(endpoint: T, completion: @escaping (T.ModelType?, Error?) -> Void) -> URLRequest?
 }
 
 extension APIRequest: APIRequestProtocol {
-    // TODO: Implement JSON decode error handling
-    // TODO: Log any JSON decode error to know about any missing mandatory field
-    
-    public func decode(_ data: Data?) -> Endpoint.ModelType? {
-        guard let data = data else { return nil }
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(endpoint.dateFormatter)
-        do {
-            let data = try decoder.decode(Endpoint.ModelType.self, from: data)
-            return data
-        } catch {
-            print(error)
-        }
-        return nil
-    }
     
     @discardableResult
-    public func request(withCompletion completion: @escaping (Endpoint.ModelType?, Error?) -> Void) -> URLRequest? {
+    public func request<T: APIEndpoint>(endpoint: T, completion: @escaping (T.ModelType?, Error?) -> Void) -> URLRequest? {
         let baseURL = environment.baseUrl
         
         guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
@@ -76,22 +66,38 @@ extension APIRequest: APIRequestProtocol {
             request.addValue($0.value, forHTTPHeaderField: $0.key)
         }
         
-        actualRequest(request, withCompletion: completion)
+        actualRequest(request) { data, error in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let data = data else {
+                completion(nil, APIError.invalidData)
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(endpoint.dateFormatter)
+            do {
+                let data = try decoder.decode(T.ModelType.self, from: data)
+                completion(data, nil)
+                
+            } catch {
+                completion(nil, APIError.pasringFailure)
+            }
+            
+        }
         
         return request
     }
     
     // TODO: Implement API Error handling
     
-    private func actualRequest(_ urlRequest: URLRequest, withCompletion completion: @escaping (Endpoint.ModelType?, Error?) -> Void) {
+    private func actualRequest(_ urlRequest: URLRequest, withCompletion completion: @escaping (Data?, Error?) -> Void) {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
-        let task = session.dataTask(with: urlRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            
-            guard let strongSelf = self else {
-                return
-            }
-            
-            completion(strongSelf.decode(data), error)
+        let task = session.dataTask(with: urlRequest, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            completion(data, error)
         })
         
         task.resume()
