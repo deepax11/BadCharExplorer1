@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Ny-e0-dtK">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Selection ListVC-->
+        <scene sceneID="bqT-f6-4O3">
+            <objects>
+                <viewController storyboardIdentifier="SelectionListVC" id="5Ny-e0-dtK" customClass="SelectionListVC" customModule="BadCharExplorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3M8-Rs-tuO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bPI-o7-BJg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SelectionListCell" id="ptB-R1-T0k" userLabel="Cell" customClass="SelectionListCell" customModule="BadCharExplorer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ptB-R1-T0k" id="hb0-ka-fid">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98, Cherry Garden Street, SE164PB" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caV-Zz-D3C">
+                                                    <rect key="frame" x="16" y="12" width="367" height="19"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="caV-Zz-D3C" secondAttribute="trailing" id="Er2-Rd-5va"/>
+                                                <constraint firstItem="caV-Zz-D3C" firstAttribute="leading" secondItem="hb0-ka-fid" secondAttribute="leading" constant="16" id="Yhl-0H-UqN"/>
+                                                <constraint firstItem="caV-Zz-D3C" firstAttribute="top" secondItem="hb0-ka-fid" secondAttribute="top" constant="12" id="cGc-gj-qay"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="caV-Zz-D3C" id="cck-lZ-eQq"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5Ny-e0-dtK" id="2nD-fp-Fhm"/>
+                                    <outlet property="delegate" destination="5Ny-e0-dtK" id="aF7-fa-pzd"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bPI-o7-BJg" firstAttribute="leading" secondItem="lEA-Bc-pCo" secondAttribute="leading" id="Xyd-yc-NB9"/>
+                            <constraint firstItem="lEA-Bc-pCo" firstAttribute="bottom" secondItem="bPI-o7-BJg" secondAttribute="bottom" id="aJG-g1-KTV"/>
+                            <constraint firstItem="lEA-Bc-pCo" firstAttribute="trailing" secondItem="bPI-o7-BJg" secondAttribute="trailing" id="cNg-a4-SCt"/>
+                            <constraint firstItem="bPI-o7-BJg" firstAttribute="top" secondItem="lEA-Bc-pCo" secondAttribute="top" id="kjg-N8-Uub"/>
+                            <constraint firstItem="bPI-o7-BJg" firstAttribute="top" secondItem="lEA-Bc-pCo" secondAttribute="top" constant="20" id="lRM-A3-jl4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lEA-Bc-pCo"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lRM-A3-jl4"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="bPI-o7-BJg" id="zCU-Wf-m88"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2cy-Bx-fmv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1084" y="-771"/>
+        </scene>
+    </scenes>
+</document>

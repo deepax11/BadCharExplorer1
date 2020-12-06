@@ -22,25 +22,24 @@ class RootFlow: Flow {
     }
 
     func start() {
-        let resource = BadCharactorListingResource()
+        let resource = BadCharacterListingResource()
         let request = APIRequest(endpoint: resource, environment: apiEnvironment)
-
-        let viewModel = BadCharListViewModel(apiRequest: request)
+        
+        let viewModel = BreakingBadCharListVM(apiRequest: request)
         viewModel.detailClosure = { [weak self] badCharacter in
             self?.showCharacterDetailView(for: badCharacter)
         }
         
-        let vc = BadCharacterListVC.makeVC(with: viewModel)
+        let vc = BreakingBadCharListVC.makeVC(with: viewModel)
         
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func showCharacterDetailView(for character: BadCharacter) {
-        //TODO:
-        // 1 Create VM initialised with character
-        // 2. Inject to VC in similar fashion as above
-        // 3. Bind and fire tha data which immedietly triggers the rendering
-        let vc = BadCharacterDetailVC.initFromStoryboard()
-        navigationController.pushViewController(vc, animated: false)
+    
+    func showCharacterDetailView(for character: BreakingBadCharacter) {
+        let viewModel = BreakingBadCharDetailVM(character: character)
+        let vc = BreakingBadCharDetailVC.makeVC(with: viewModel)
+        navigationController.pushViewController(vc, animated: true)
     }
+    
 }

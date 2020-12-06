@@ -9,20 +9,23 @@
 import Foundation
 import NetworkKit
 
-public struct BadCharacter: Codable {
+public struct BreakingBadCharacter: Codable {
+    
     public let id: Int
     public let name: String
     public let birthday: Date?
     public let occupation: [String]
     public let imageUrl: String
-    public let status: String
+    public let status: LifeStatus // status: "Alive", Deceased, Presumed dead
+
     public let nicName: String
-    public let appearance: [Int]?
+    public let appearance: [Season]?
     public let portrayed: String
-    public let category: String
+    public let category: String //category: "Breaking Bad, Better Call Saul",
+
     public let saulApearance: [Int]?
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey { 
         case id = "char_id"
         case name
         case birthday
@@ -43,11 +46,29 @@ public struct BadCharacter: Codable {
         birthday = try? container.decode(Date.self, forKey: .birthday)
         occupation = try container.decode([String].self, forKey: .occupation)
         imageUrl = try container.decode(String.self, forKey: .imageUrl)
-        status = try container.decode(String.self, forKey: .status)
+        status = try container.decode(LifeStatus.self, forKey: .status)
         nicName = try container.decode(String.self, forKey: .nicName)
-        appearance = try? container.decode([Int].self, forKey: .appearance)
+        appearance = try? container.decode([Season].self, forKey: .appearance)
         portrayed = try container.decode(String.self, forKey: .nicName)
         category = try container.decode(String.self, forKey: .nicName)
         saulApearance = try? container.decode([Int].self, forKey: .saulApearance)
     }
 }
+
+public enum LifeStatus: String, Codable {
+    case alive = "Alive"
+    case deceased = "Deceased"
+    case presumedDead = "Presumed dead"
+    case unknown = "Unknown"
+}
+
+
+public enum Season: Int, Codable, CaseIterable {
+    case none = 0
+    case season1 = 1
+    case season2 = 2
+    case season3 = 3
+    case season4 = 4
+    case season5 = 5
+}
+

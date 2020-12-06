@@ -1,0 +1,121 @@
+//
+//  BadCharListViewModel.swift
+//  BadCharExplorer
+//
+//  Created by Deepak Shukla on 12/10/2020.
+//  Copyright © 2020 Deepak Shukla. All rights reserved.
+//
+
+import Foundation
+import DTOKit
+import NetworkKit
+
+
+protocol BreakingBadCharListVMProtocol {
+    init(apiRequest: APIRequest<BadCharacterListingResource>)
+    func fetchResults()
+    func fetchResults(with searchTerm: String?)
+    func fetchResults(for seasonNumber: Int)
+}
+
+
+class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
+    
+    let apiRequest: APIRequest<BadCharacterListingResource>
+    
+    required init( apiRequest: APIRequest<BadCharacterListingResource>) {
+        self.apiRequest = apiRequest
+    }
+    
+    var data: DynamicValue<BadCharacterListViewState> = DynamicValue([])
+    var error: DynamicValue<Error?> = DynamicValue(nil)
+    var selectedSeason: DynamicValue<Season> = DynamicValue(Season.none)
+    
+    private var badCharacters : [BreakingBadCharacter] = []
+    
+    
+    var detailClosure: ((BreakingBadCharacter) -> Void)?
+    
+    
+    func fetchResults() {
+        apiRequest.request { [weak self] result, error in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            if let error = error {
+                strongSelf.error.value = error
+            } else {
+                strongSelf.badCharacters = result ?? []
+                let viewStates = strongSelf.mapCharactersToViewState(characters: strongSelf.badCharacters,
+                                                                     for: .none)
+                strongSelf.data.value = viewStates
+            }
+            
+        }
+    }
+    
+    
+    private func mapCharactersToViewState(characters: [BreakingBadCharacter], for season: Season) -> BadCharacterListViewState {
+        var filteredChars = characters
+        if season != .none {
+            filteredChars = filteredChars.filter { badCharacter in
+                let appearances = badCharacter.appearance ?? []
+                return appearances.contains(season)
+            }
+        }
+        
+        let listViewState = filteredChars.map {
+            BreakingBadCharCellViewState(id: $0.id, imageURL: $0.imageUrl, name: $0.name)
+        }.sorted {
+            $0.name < $1.name
+        }
+        
+        return listViewState
+    }
+    
+    func fetchResults(with searchTerm: String?) {
+        guard let searchTerm = searchTerm, !searchTerm.isEmpty else {
+            let selectedSeason = self.selectedSeason.value
+            self.data.value = mapCharactersToViewState(characters: badCharacters, for: selectedSeason)
+            return
+        }
+        
+        let selectedSeason = self.selectedSeason.value
+        let filteredChars = badCharacters.filter { $0.name.contains(searchTerm)}
+        let viewStates = mapCharactersToViewState(characters: filteredChars, for: selectedSeason)
+        self.data.value = viewStates
+    }
+    
+    func fetchResults(for seasonNumber: Int) {
+        guard let requestedSeason = Season(rawValue: seasonNumber) else {
+            return // Not a valid season
+        }
+        
+        if selectedSeason.value == requestedSeason {
+            return // Same season has been selected, No need to process further
+        }
+        
+        self.data.value = mapCharactersToViewState(characters: badCharacters, for: requestedSeason)
+        self.selectedSeason.value = requestedSeason
+    }
+    
+    
+    func selectedSeasonInformation(season: Season) -> String {
+        let seasonInfo = "Filtered by Season: \(season.displayName)"
+        return seasonInfo
+    }
+    
+    // Detail action
+    
+    func showCharacterDetail(of characterID: Int) {
+        // TODO: If list large store data in sqlite database
+        //TOD0: if list is small keep data in memory in dictionary format for quick lookup
+        guard let charracter = self.badCharacters.first (where: { $0.id == characterID }) else {
+            return
+        }
+        detailClosure?(charracter)
+    }
+    
+}
+

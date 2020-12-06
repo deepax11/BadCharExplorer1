@@ -9,8 +9,8 @@
 import Foundation
 import NetworkKit
 
-public struct BadCharactorListingResource: APIEndpoint {
-    public typealias ModelType = [BadCharacter]
+public struct BadCharacterListingResource: APIEndpoint {
+    public typealias ModelType = [BreakingBadCharacter]
     
     public init() { }
     
