@@ -137,16 +137,16 @@ extension BreakingBadCharListVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        viewModel.fetchResults(with: searchBar.text)
+        viewModel.fetchResults(withSearchTerm: searchBar.text)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.fetchResults(with: searchBar.text)
+        viewModel.fetchResults(withSearchTerm: searchBar.text)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         resetSearchButton()
-        viewModel.fetchResults(with: searchBar.text)
+        viewModel.fetchResults(withSearchTerm: searchBar.text)
     }
 }
 
@@ -156,7 +156,7 @@ extension BreakingBadCharListVC: UISearchBarDelegate {
 extension BreakingBadCharListVC : SelectionListVCDelegate {
     func selectionListVC(_ tableView: SelectionListVC, didSelectItemAtIndex index: IndexPath) {
         self.navigationController?.popViewController(animated: true)
-        self.viewModel.fetchResults(for: index.row)
+        self.viewModel.fetchResults(forSeasonNumber: index.row)
     }
 
 }

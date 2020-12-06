@@ -12,14 +12,14 @@ import NetworkKit
 
 class DTOKitTests: XCTestCase {
 
-    private var request: APIRequest<ProductListingEndpoint>!
+    private var request: APIRequest!
 
     func testExample() throws {
         let expectation = self.expectation(description: "Check NetworkKit request")
         
-        let resource = ProductListingEndpoint()
-        request = APIRequest(endpoint: resource, environment: TestEnvironment.test)
-        request.request { productList, error in
+        let endpoint = ProductListingEndpoint()
+        request = APIRequest(environment: TestEnvironment.test)
+        request.request(endpoint: endpoint) { productList, error in
             XCTAssert(productList != nil ,  "Product response paylod is either missing or Invalid.")
             expectation.fulfill()
         }

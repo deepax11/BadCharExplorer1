@@ -16,8 +16,9 @@ class NetworkKitTests: XCTestCase {
     // Adding one here for example
 
     func testThatProperGetRequestCreatedFromAPIEndpoint() throws {
-        let request = APIRequest(endpoint: MockedEndpoint(), environment: TestEnvironment.test)
-        let urlRequest = request.request { data, error in }
+        let endpoint = MockedEndpoint()
+        let request = APIRequest(environment: TestEnvironment.test)
+        let urlRequest = request.request(endpoint: endpoint) { data, error in }
         
         XCTAssert(urlRequest?.httpBody == nil, "Get request should not have body")
         XCTAssert(urlRequest?.httpMethod == "GET", "Get request should have its method type `GET`")

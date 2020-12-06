@@ -19,11 +19,11 @@ public struct BreakingBadCharacter: Codable {
     public let status: LifeStatus // status: "Alive", Deceased, Presumed dead
 
     public let nicName: String
-    public let appearance: [Season]?
+    public let appearances: [Season]?
     public let portrayed: String
     public let category: String //category: "Breaking Bad, Better Call Saul",
 
-    public let saulApearance: [Int]?
+    public let saulApearances: [Int]?
     
     enum CodingKeys: String, CodingKey { 
         case id = "char_id"
@@ -33,10 +33,10 @@ public struct BreakingBadCharacter: Codable {
         case imageUrl = "img"
         case status
         case nicName = "nickname"
-        case appearance
+        case appearances = "appearance"
         case portrayed
         case category
-        case saulApearance = "better_call_saul_appearance"
+        case saulApearances = "better_call_saul_appearance"
     }
     
     public init(from decoder: Decoder) throws {
@@ -48,10 +48,10 @@ public struct BreakingBadCharacter: Codable {
         imageUrl = try container.decode(String.self, forKey: .imageUrl)
         status = try container.decode(LifeStatus.self, forKey: .status)
         nicName = try container.decode(String.self, forKey: .nicName)
-        appearance = try? container.decode([Season].self, forKey: .appearance)
+        appearances = try? container.decode([Season].self, forKey: .appearances)
         portrayed = try container.decode(String.self, forKey: .nicName)
         category = try container.decode(String.self, forKey: .nicName)
-        saulApearance = try? container.decode([Int].self, forKey: .saulApearance)
+        saulApearances = try? container.decode([Int].self, forKey: .saulApearances)
     }
 }
 

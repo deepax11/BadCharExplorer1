@@ -14,8 +14,8 @@ import NetworkKit
 protocol BreakingBadCharListVMProtocol {
     init(apiRequest: APIRequestProtocol, endpoint: BadCharactersAPIEndpoint)
     func fetchResults()
-    func fetchResults(with searchTerm: String?)
-    func fetchResults(for seasonNumber: Int)
+    func fetchResults(withSearchTerm searchTerm: String?)
+    func fetchResults(forSeasonNumber seasonNumber: Int)
 }
 
 
@@ -29,9 +29,9 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
         self.apiEndpoint = endpoint
     }
     
-    var data: DynamicValue<BadCharacterListViewState> = DynamicValue([])
-    var error: DynamicValue<Error?> = DynamicValue(nil)
-    var selectedSeason: DynamicValue<Season> = DynamicValue(Season.none)
+    private(set) var data: DynamicValue<BadCharacterListViewState> = DynamicValue([])
+    private(set) var error: DynamicValue<Error?> = DynamicValue(nil)
+    private(set) var selectedSeason: DynamicValue<Season> = DynamicValue(Season.none)
     
     private var badCharacters : [BreakingBadCharacter] = []
     var detailClosure: ((BreakingBadCharacter) -> Void)?
@@ -60,7 +60,7 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
         var filteredChars = characters
         if season != .none {
             filteredChars = filteredChars.filter { badCharacter in
-                let appearances = badCharacter.appearance ?? []
+                let appearances = badCharacter.appearances ?? []
                 return appearances.contains(season)
             }
         }
@@ -74,7 +74,7 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
         return listViewState
     }
     
-    func fetchResults(with searchTerm: String?) {
+    func fetchResults(withSearchTerm searchTerm: String?) {
         guard let searchTerm = searchTerm, !searchTerm.isEmpty else {
             let selectedSeason = self.selectedSeason.value
             self.data.value = mapCharactersToViewState(characters: badCharacters, for: selectedSeason)
@@ -87,7 +87,7 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
         self.data.value = viewStates
     }
     
-    func fetchResults(for seasonNumber: Int) {
+    func fetchResults(forSeasonNumber seasonNumber: Int) {
         guard let requestedSeason = Season(rawValue: seasonNumber) else {
             return // Not a valid season
         }
@@ -108,13 +108,19 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
     
     // Detail action
     
-    func showCharacterDetail(of characterID: Int) {
+    func fetchCharacterDetail(of characterID: Int) -> BreakingBadCharacter? {
         //TODO: If list is large, data should be stored sqlite database and then fetched from there
         //TODO: if list is small keep data in memory in dictionary format for quick lookup
-        guard let charracter = self.badCharacters.first (where: { $0.id == characterID }) else {
-            return
+        guard let character = self.badCharacters.first (where: { $0.id == characterID }) else {
+            return nil
         }
-        detailClosure?(charracter)
+        return character
+    }
+    
+    func showCharacterDetail(of characterID: Int) {
+        if let character = fetchCharacterDetail(of: characterID){
+            detailClosure?(character)
+        }
     }
     
 }
