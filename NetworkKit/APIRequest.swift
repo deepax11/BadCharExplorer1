@@ -8,6 +8,23 @@
 
 import Foundation
 
+private struct OptionalContainer<Base: Codable>: Codable {
+    let base: Base?
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        base = try? container.decode(Base.self)
+    }
+}
+
+public struct OptionalArray<Base: Codable>: Codable {
+    public let result: [Base]
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let tmp = try container.decode([OptionalContainer<Base>].self)
+        result = tmp.compactMap { $0.base }
+    }
+}
+
 public enum APIError: Error {
     case invalidURL
     case requestFailed

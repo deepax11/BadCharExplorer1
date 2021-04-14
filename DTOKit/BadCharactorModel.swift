@@ -9,12 +9,22 @@
 import Foundation
 import NetworkKit
 
+struct FailableDecodable<Base : Decodable> : Decodable {
+
+    let base: Base?
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        self.base = try? container.decode(Base.self)
+    }
+}
+
 public struct BreakingBadCharacter: Codable {
     
     public let id: Int
     public let name: String
     public let birthday: Date?
-    public let occupation: [String]
+    public let occupation: OptionalArray<String>
     public let imageUrl: String
     public let status: LifeStatus // status: "Alive", Deceased, Presumed dead
 
@@ -44,7 +54,7 @@ public struct BreakingBadCharacter: Codable {
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         birthday = try? container.decode(Date.self, forKey: .birthday)
-        occupation = try container.decode([String].self, forKey: .occupation)
+        occupation = try container.decode(OptionalArray.self, forKey: .occupation)
         imageUrl = try container.decode(String.self, forKey: .imageUrl)
         status = try container.decode(LifeStatus.self, forKey: .status)
         nicName = try container.decode(String.self, forKey: .nicName)

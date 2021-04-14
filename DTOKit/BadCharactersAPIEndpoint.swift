@@ -10,7 +10,7 @@ import Foundation
 import NetworkKit
 
 public struct BadCharactersAPIEndpoint: APIEndpoint {
-    public typealias ModelType = [BreakingBadCharacter]
+    public typealias ModelType = OptionalArray<BreakingBadCharacter>
     
     public init() { }
     

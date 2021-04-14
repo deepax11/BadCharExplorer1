@@ -28,7 +28,7 @@ struct BreakingBadCharDetailVM {
     
     func fetchViewState() {
         let imageURL = breakingBadCharacter.imageUrl
-        let occupations = breakingBadCharacter.occupation.joined(separator: ", ")
+        let occupations = breakingBadCharacter.occupation.result.joined(separator: ", ")
         let seasons = breakingBadCharacter.appearances?
             .map ({ String($0.rawValue) })
             .joined(separator: ", ")

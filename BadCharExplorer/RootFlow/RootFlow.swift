@@ -22,14 +22,18 @@ class RootFlow: Flow {
     }
 
     func start() {
+        
+        // Injectable and mockable network input
         let endpoint = BadCharactersAPIEndpoint()
         let request = APIRequest(environment: apiEnvironment)
         
+        // Business layer + presentation layer (for big projects it should be devided in its respective layers)
         let viewModel = BreakingBadCharListVM(apiRequest: request, endpoint: endpoint)
         viewModel.detailClosure = { [weak self] badCharacter in
             self?.showCharacterDetailView(for: badCharacter)
         }
         
+        // UILayer
         let vc = BreakingBadCharListVC.makeVC(with: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }

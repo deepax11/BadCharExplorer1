@@ -88,7 +88,7 @@ class BreakingBadCharListVC: UIViewController {
         // As this VC is being used to select seasons to filter the list,
         // It does not need to go though flow controller
         // It is an intermediate list which would be dismissed after selection
-        // Hance safe to avoid Flow controller
+        // Hance safe to avoid present via flow controller
         let vc = SelectionListVC.initFromStoryboard()
         vc.delegate = self
         vc.dataList = options

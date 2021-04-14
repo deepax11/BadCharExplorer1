@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aKc-Kw-ShK">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aKc-Kw-ShK">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,7 +14,7 @@
             <objects>
                 <viewController storyboardIdentifier="BadCharacterDetailVC" id="aKc-Kw-ShK" customClass="BreakingBadCharDetailVC" customModule="BadCharExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kuN-sZ-cr5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Eug-AM-M5G">
@@ -23,13 +25,14 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fCO-XB-Q4V">
-                                <rect key="frame" x="140" y="64" width="254" height="778"/>
+                                <rect key="frame" x="140" y="64" width="215" height="778"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="250" constant="778" id="Ewy-70-tfY"/>
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="D0P-OD-tjm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fCO-XB-Q4V" firstAttribute="top" secondItem="D0P-OD-tjm" secondAttribute="top" constant="20" id="8pW-hr-DpS"/>
                             <constraint firstAttribute="trailing" secondItem="fCO-XB-Q4V" secondAttribute="trailing" constant="20" id="Z3h-5t-nfS"/>
@@ -37,7 +40,6 @@
                             <constraint firstItem="fCO-XB-Q4V" firstAttribute="leading" secondItem="Eug-AM-M5G" secondAttribute="trailing" constant="20" id="jmY-f4-s5g"/>
                             <constraint firstItem="Eug-AM-M5G" firstAttribute="leading" secondItem="D0P-OD-tjm" secondAttribute="leading" constant="20" id="uOL-pn-tpk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="D0P-OD-tjm"/>
                     </view>
                     <connections>
                         <outlet property="characterImageView" destination="Eug-AM-M5G" id="mBW-ny-j9Z"/>
@@ -49,4 +51,9 @@
             <point key="canvasLocation" x="139" y="137"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

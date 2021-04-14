@@ -10,24 +10,6 @@ import Foundation
 import UIKit
 import NetworkKit
 
-// This view model does not need to follow binding approch
-struct BreakingBadCharCellViewVM {
-    private var imageRequest = ImageRequest()
-    
-    mutating func loadImage(from urlConvertible: CustomURLConvertible,
-                            completion: @escaping ((UIImage?, URL?) -> Void)) {
-        guard let url = urlConvertible.asURL else {
-            completion(nil, nil)
-            return
-        }
-        
-        imageRequest.request(URLRequest(url: url)) { image in
-            completion(image, url)
-        }
-        
-    }
-}
-
 struct BreakingBadCharCellViewState {
     let id: Int
     let imageURL: String

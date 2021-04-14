@@ -13,7 +13,6 @@ import Foundation
 
 public enum TestEnvironment : APIEnvironmentProtocol {
     case test
-    
     public var baseUrl: URL {
          return URL(string: "https://gist.githubusercontent.com/")!
     }

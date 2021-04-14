@@ -46,7 +46,7 @@ class BreakingBadCharListVM: BreakingBadCharListVMProtocol {
             if let error = error {
                 strongSelf.error.value = error
             } else {
-                strongSelf.badCharacters = result ?? []
+                strongSelf.badCharacters = result?.result ?? []
                 let viewStates = strongSelf.mapCharactersToViewState(characters: strongSelf.badCharacters,
                                                                      for: .none)
                 strongSelf.data.value = viewStates

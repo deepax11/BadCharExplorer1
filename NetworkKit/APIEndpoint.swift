@@ -22,6 +22,9 @@ public protocol APIEndpoint {
     var dateFormatter: DateFormatter { get }
 }
 
+// providing extension method helps to have default values.
+// but based on project one can make some mandatory by not overriding
+
 public extension APIEndpoint {
     var method: APIMethod {
         return .get
@@ -54,6 +57,5 @@ public extension APIEndpoint {
     var dateFormatter : DateFormatter {
         return DateFormatter()
     }
-    
 
 }
