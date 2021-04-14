@@ -30,6 +30,8 @@
 		E16AF5AC257D4C770035C3E6 /* BreakingBadCharList.json in Resources */ = {isa = PBXBuildFile; fileRef = E16AF5AB257D4C770035C3E6 /* BreakingBadCharList.json */; };
 		E16AF5AE257D57B50035C3E6 /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16AF5AD257D57B50035C3E6 /* JSONLoader.swift */; };
 		E1760A7F26272AE4007BC4A5 /* BreakingBadCharCellViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1760A7E26272AE4007BC4A5 /* BreakingBadCharCellViewVM.swift */; };
+		E1760A8726273068007BC4A5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E1760A8626273068007BC4A5 /* README.md */; };
+		E1760A8F2627307E007BC4A5 /* iOS-dev-problem-statement.DOCX in Resources */ = {isa = PBXBuildFile; fileRef = E1760A8E2627307E007BC4A5 /* iOS-dev-problem-statement.DOCX */; };
 		E17C0F5C2575AE16006AED36 /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E180FBE825745CF40023666F /* APIMethod.swift */; };
 		E17C0F5D2575AE16006AED36 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E180FBE625745CF40023666F /* APIEnvironment.swift */; };
 		E17C0F5F2575AE16006AED36 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E180FBE525745CF40023666F /* APIRequest.swift */; };
@@ -155,6 +157,8 @@
 		E16AF5AB257D4C770035C3E6 /* BreakingBadCharList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BreakingBadCharList.json; sourceTree = "<group>"; };
 		E16AF5AD257D57B50035C3E6 /* JSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
 		E1760A7E26272AE4007BC4A5 /* BreakingBadCharCellViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakingBadCharCellViewVM.swift; sourceTree = "<group>"; };
+		E1760A8626273068007BC4A5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E1760A8E2627307E007BC4A5 /* iOS-dev-problem-statement.DOCX */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iOS-dev-problem-statement.DOCX"; sourceTree = "<group>"; };
 		E17C0F68257623D2006AED36 /* StoryboardLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardLoadable.swift; sourceTree = "<group>"; };
 		E17C0F6C257624F5006AED36 /* ReuseIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifier.swift; sourceTree = "<group>"; };
 		E180FB8F257458DB0023666F /* BadCharExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BadCharExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,6 +316,8 @@
 		E180FB86257458DB0023666F = {
 			isa = PBXGroup;
 			children = (
+				E1760A8E2627307E007BC4A5 /* iOS-dev-problem-statement.DOCX */,
+				E1760A8626273068007BC4A5 /* README.md */,
 				E180FB91257458DB0023666F /* BadCharExplorer */,
 				E180FBA8257458DE0023666F /* BadCharExplorerTests */,
 				E180FBB3257458DE0023666F /* BadCharExplorerUITests */,
@@ -654,8 +660,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1760A8726273068007BC4A5 /* README.md in Resources */,
 				E180FB9F257458DE0023666F /* LaunchScreen.storyboard in Resources */,
 				E164FBF225772C5900FB512A /* BreakingBadCharDetailVC.storyboard in Resources */,
+				E1760A8F2627307E007BC4A5 /* iOS-dev-problem-statement.DOCX in Resources */,
 				E180FB9C257458DE0023666F /* Assets.xcassets in Resources */,
 				E19CE8CD2576294500D44BF7 /* BreakingBadCharListVC.storyboard in Resources */,
 				E16AF5A9257D47720035C3E6 /* SelectionListVC.storyboard in Resources */,
