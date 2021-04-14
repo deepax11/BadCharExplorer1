@@ -17,4 +17,7 @@ Addd simple test case to demonstate how can we test against APIEndpoint.
 ##4. Implemented MVVM architecture to render the list screen
 
 Please note that I have create few reusable classes/struct/extension which can be good usecase to dump in new module SharedKit.
-Please also note that I added test cases around view models to which should give enough hint about my approch
+I added one test cases around view models to show case how view models can be used to test presentation logic. Not to mention that there should be more test cases.
+
+
+Please note that - After checking out repo make sure to build both module before running the main target.
