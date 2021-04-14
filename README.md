@@ -2,7 +2,9 @@
 
 Dear Reviwer,
 
-I have done what could I have done in my free time. I think I have completed all requirements. Though did not test thoroughly.
+This project has been written for the interview tech test. you can find the problem statement in file iOS-dev-problem-statement.DOCX under root folder.
+
+My main focus has been to create modular and testable architecture following SOLID approach. UI has Follwing been neglected because of time constraint. 
 
 ##1. Created NetworkKit similar to what I have been using in my current project.
 I kept it simple with minimum interface.
@@ -17,4 +19,7 @@ Addd simple test case to demonstate how can we test against APIEndpoint.
 ##4. Implemented MVVM architecture to render the list screen
 
 Please note that I have create few reusable classes/struct/extension which can be good usecase to dump in new module SharedKit.
-Please also note that I added test cases around view models to which should give enough hint about my approch
+I added one test cases around view models to show case how view models can be used to test presentation logic. Not to mention that there should be more test cases.
+
+
+Please note that - After checking out repo make sure to build both module before running the main target.
